@@ -73,7 +73,7 @@
 * Linux and Mac ports coming soon.
 
 ### For Convenience Download single executable for Windows
-https://rebataur.com/fsKube/download
+https://rebataur.com/tools/fskube#fskube
 
 ### Prerequisites
 
@@ -166,6 +166,8 @@ Project Link: [https://github.com/rebataur/fskube](https://github.com/rebataur/f
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
+We stand on the shoulders of giants!
+This project would not have been possible without the following projects.
 
 * [eksctl]()
 * [aws cli]()
