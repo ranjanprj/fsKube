@@ -97,7 +97,7 @@ venv\scripts\activate
 ```sh
 pip install -r requirements.txt
 ```
-4. Type run.bat at terminal
+4. Run the flask app
 ```sh
 >set FLASK_APP=fskube.py
 >set FLASK_DEBUG=FALSE 
