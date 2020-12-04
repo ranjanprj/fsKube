@@ -1,0 +1,6 @@
+.vscode
+venv
+build/
+binaries
+downloads
+*__pycache__*
