@@ -3,4 +3,6 @@ venv
 build/
 binaries
 downloads
+frameworks
+*.bat
 *__pycache__*

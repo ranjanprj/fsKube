@@ -492,8 +492,6 @@ def quick_create():
     except OSError as e:
         pass
     cmd = f'eksctl create cluster --name {cluster_name} --region {cluster_region} --kubeconfig={path}\\kubeconfig.yaml'
-    # cmd = f'eksctl create cluster --name {cluster_name} --region {cluster_region}  --instance-types=t3a.medium --kubeconfig={path}\\kubeconfig.yaml'
-
 
     output = commander.execute_command(cmd)
    

@@ -72,14 +72,14 @@
 * Currently only runs on Windows
 * Linux and Mac ports coming soon.
 
-### Download single executable for Windows
+### For Convenience Download single executable for Windows
 https://rebataur.com/fsKube/download
 
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
 * Python 3.7+
-
+* AWS CLI
 
 ### Installation
  
@@ -91,7 +91,7 @@ git clone https://github.com/rebataur/fskube.git
 ```sh
 cd fskube
 virtualenv venv
-venv.bat
+venv\scripts\activate
 ```
 3. Install fsKube
 ```sh
@@ -99,12 +99,23 @@ pip install -r requirements.txt
 ```
 4. Type run.bat at terminal
 ```sh
->run.bat
+>set FLASK_APP=fskube.py
+>set FLASK_DEBUG=FALSE 
+>set FLASK_RUN_PORT=5678
+>flask run
 ```
-5. Launch http://localhost:5678 in your browser
+5. Download following dependencies
+```sh
+>mkdir binaries\cli
+```
+Copy velero.exe, linkerd.exe, helm.exe, kubectl.exe into this folder
+
+6. Launch http://localhost:5678 in your browser
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+KubeConfig file is stored in your YOUR_USER_DIRECTORY/.fsKube/YOUR_CLUSTER_ID
+
 
 Please watch a detailed video of fskube below.
 
@@ -114,6 +125,11 @@ Please watch a detailed video of fskube below.
 
 <!-- ROADMAP -->
 ## Roadmap
+
+1. Spot Instances
+2. AMD Based Instances
+3. Graviton based Instances
+4. AutoScaling Group
 
 See the [open issues](https://github.com/rebataur/fskube/issues) for a list of proposed features (and known issues).
 
