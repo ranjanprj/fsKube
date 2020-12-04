@@ -17,7 +17,7 @@
   <h3 align="center">fsKube - Your full-stack Kubernetes enabler</h3>
 
   <p align="center">
- If your a Java, Python, Ruby or NodeJS developer, fsKube provides you with best user experience in easily running your full-stack apps on Kubernetes in AWS
+ If you are a Java, Python, Ruby or NodeJS developer, fsKube provides you with best user experience in easily running your full-stack apps on Kubernetes in AWS with just a few clicks.
     <br />
     <!-- <a href="https://github.com/rebataur/fskube"><strong>Explore the docs »</strong></a> -->
     <br />
