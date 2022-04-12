@@ -5,4 +5,5 @@ binaries
 downloads
 frameworks
 *.bat
+*.log
 *__pycache__*

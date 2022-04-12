@@ -20,7 +20,7 @@ from nacl import encoding, public
 import boto3
 from github import Github
 from apscheduler.schedulers.background import BackgroundScheduler
-import jwt
+# import jwt
 from flask import Flask, request, send_from_directory, url_for, render_template, redirect, jsonify
 from pony.orm import *
 import pony.orm.dbproviders.sqlite
@@ -55,27 +55,35 @@ def test(cmd, subcmd):
 
 
 def prereq_satisfied():
-    # aws_access_key_id=model.get_global_config_value('AWS_ACCESS_KEY_ID') 
-    # aws_secret_access_key=model.get_global_config_value('AWS_SECRET_ACCESS_KEY')   
-    # github_personal_token=model.get_global_config_value('GITHUB_PERSONAL_TOKEN')   
-    license_key=model.get_global_config_value('FS_KUBE_LICENSE_KEY')   
-    if not license_key:
-        return {'out': None, 'err': "Please provide a valid license key from https://rebataur.com", 'rc': 1}
-    try:
-        decoded = jwt.decode(license_key, '½Þý/^\x1e\x03\x8d\x88¯\x87<\x1b>¹¦B<¿¤\x08\x01@Q\x17¹Ç2{\r&\x80', algorithms=['HS256'])
+    aws_access_key_id=model.get_global_config_value('AWS_ACCESS_KEY_ID') 
+    aws_secret_access_key=model.get_global_config_value('AWS_SECRET_ACCESS_KEY')   
+    github_personal_token=model.get_global_config_value('GITHUB_PERSONAL_TOKEN')   
+    print(aws_access_key_id , aws_secret_access_key , github_personal_token)
+    if aws_access_key_id and aws_secret_access_key and github_personal_token:
+        return {'out': None, 'err': None, 'rc': 0}
 
-    except jwt.ExpiredSignatureError:
-        logging.info("Your license has expired, please renew at https://rebataur.com")
-        return {'out': None, 'err': "Your license has expired, please renew at https://rebataur.com", 'rc': 1}
-    return {'out': None, 'err': None, 'rc': 0}
+    ## DISABLING LICENSE KEY 
+    
+    # license_key=model.get_global_config_value('FS_KUBE_LICENSE_KEY')   
+    # if not license_key:
+    #     return {'out': None, 'err': "Please provide a valid license key from https://rebataur.com", 'rc': 1}
+    # try:
+    #     decoded = jwt.decode(license_key, '½Þý/^\x1e\x03\x8d\x88¯\x87<\x1b>¹¦B<¿¤\x08\x01@Q\x17¹Ç2{\r&\x80', algorithms=['HS256'])
+
+    # except jwt.ExpiredSignatureError:
+    #     logging.info("Your license has expired, please renew at https://rebataur.com")
+    #     return {'out': None, 'err': "Your license has expired, please renew at https://rebataur.com", 'rc': 1}
+    return {'out': None, 'err': None, 'rc': 1}
 
 # ~~~ Index Route
 @app.route('/')
 def home(name=None):
     prereq = prereq_satisfied()
+    print(prereq)
     if prereq['rc'] != 0:
         return redirect(url_for('configure'))
 
+    return render_template('index.html', context={})
 
 
     context = {}
@@ -120,16 +128,16 @@ def configure():
     if request.method == 'POST':
         
         # check for license
-        license_key = request.form.get('FS_KUBE_LICENSE_KEY')
-        if not license_key:
-            context['msg'] = "Please provide a valid license key from https://rebataur.com"
-            return render_template('configure.html',context=context)
-        try:
-            decoded = jwt.decode(license_key, '½Þý/^\x1e\x03\x8d\x88¯\x87<\x1b>¹¦B<¿¤\x08\x01@Q\x17¹Ç2{\r&\x80', algorithms=['HS256'])
+        # license_key = request.form.get('FS_KUBE_LICENSE_KEY')
+        # if not license_key:
+        #     context['msg'] = "Please provide a valid license key from https://rebataur.com"
+        #     return render_template('configure.html',context=context)
+        # try:
+        #     decoded = jwt.decode(license_key, '½Þý/^\x1e\x03\x8d\x88¯\x87<\x1b>¹¦B<¿¤\x08\x01@Q\x17¹Ç2{\r&\x80', algorithms=['HS256'])
 
-        except jwt.ExpiredSignatureError:
-            context['msg'] = "Your license has expired, please renew at https://rebataur.com"
-            return render_template('configure.html',context=context)
+        # except jwt.ExpiredSignatureError:
+        #     context['msg'] = "Your license has expired, please renew at https://rebataur.com"
+        #     return render_template('configure.html',context=context)
 
         # store the keys
         for key in keys:            
